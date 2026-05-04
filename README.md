@@ -9,20 +9,16 @@ app_file: app.py
 pinned: false
 ---
 
-
-
-
 # BDD100K Semantic Segmentation
-**End-to-end deployed segmentation pipeline**   
- U-Net + EfficientNet-B3 
+**End-to-end deployed segmentation pipeline - U-Net + EfficientNet-B3**  
 trained on BDD100K, served via FastAPI and Gradio on HuggingFace Spaces.
 
-mIoU: 51.6% | Pixel Accuracy: 91.8% | 19 classes | [ Live Demo](#)
+mIoU: 51.6% | Pixel Accuracy: 91.8% | 19 classes 
 
 
 
-##  Live Demo
-[Try it here](https://huggingface.co/spaces/ChloeRasteiro/bdd100k-segmentation)
+## Live Demo
+[Try it here](https://huggingface.co/spaces/chloerasteiro/bdd100k-segmentation)
 
 Upload any driving scene image → get semantic segmentation in real-time.
  
@@ -123,25 +119,23 @@ Combined Loss = 0.5 × Focal +0.5 x Dice
 | ------------- | ----- | ---------------- |
 | Sky           | 0.949 | 20.866           |
 | Road          | 0.937 | 24.976           |
+| Car           | 0.876 | 10.476           |
 | Vegetation    | 0.840 | 17.870           |
 | Building      | 0.821 | 17.238           |
-| Car           | 0.876 | 10.476           |
-| Sidewalk      | 0.602 | 2.371            |
-| Person        | 0.623 | 0.286            |
 | Bus           | 0.678 | 0.728            |
-| Truck         | 0.479 | 1.176            |
-| Pole          | 0.395 | 1.122            |
-| Terrain       | 0.470 | 1.054            |
+| Person        | 0.623 | 0.286            |
+| Sidewalk      | 0.602 | 2.371            |
 | Traffic Light | 0.515 | 0.157            |
 | Traffic Sign  | 0.488 | 0.267            |
+| Truck         | 0.479 | 1.176            |
+| Terrain       | 0.470 | 1.054            |
 | Fence         | 0.402 | 0.932            |
+| Pole          | 0.395 | 1.122            |
 | Motorcycle    | 0.309 | 0.027            |
 | Wall          | 0.268 | 0.412            |
 | Rider         | 0.136 | 0.011            |
 | Bicycle       | 0.016 | 0.018            |
 | Train         | 0.000 | 0.014            |
-
-
 
 
 ##  Analysis 
@@ -160,12 +154,12 @@ These classes benefit from large pixel coverage, high frequency in the training 
 
 ### Limitations 
 **Small objects:** 
-- Bicycles (0.049), Traffic lights (0.401): Too small at 512×512 resolution 
+- Bicycles (0.016), Traffic lights (0.515): Too small at 512×512 resolution 
 
-These small objects are too difficult to detect at 640×640 resolution. Fine details are lost during resizing from the original 1280×720, making precise segmentation nearly impossible.
+These small objects are too difficult to detect at 512×512 resolution. Fine details are lost during resizing from the original 1280×720, making precise segmentation nearly impossible.
 
 **Rare classes:** 
-- Train (0.000), Rider (0.186): Only 0.01% of dataset each 
+- Train (0.000), Rider (0.136): Only 0.01% of dataset each 
 These classes represent only 0.01% of the dataset each, providing insufficient training examples for the model to learn their characteristics. The model has seen fewer than 100 examples during the entire training process.
 
 ## Deployment
