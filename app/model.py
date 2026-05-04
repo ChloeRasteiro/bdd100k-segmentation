@@ -9,7 +9,14 @@ from data.transforms import get_val_transform
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 TRANSFORM = get_val_transform(image_size=512)
 
-def load_model(path: str = "models/unet/best_dice_focal_bundle.pth"):
+from huggingface_hub import hf_hub_download
+
+def load_model():
+    path = hf_hub_download(
+        repo_id="chloerasteiro/bdd100k-model",
+        filename="model/best_dice_focal_bundle.pth",
+        repo_type="dataset"
+    )
     checkpoint = torch.load(path, map_location=DEVICE)
     config = checkpoint["config"]
 
@@ -19,7 +26,6 @@ def load_model(path: str = "models/unet/best_dice_focal_bundle.pth"):
         in_channels=config["model"]["in_channels"],
         classes=config["data"]["num_classes"],
     )
-
     model.load_state_dict(checkpoint["model_state_dict"])
     model.eval()
     model.to(DEVICE)
