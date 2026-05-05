@@ -8,12 +8,12 @@ def segment_image(image):
     result = predict(image)
     return result
 
-with gr.Blocks(title="BDD100K Segmentation") as demo:
+with gr.Blocks(title="BDD100K Segmentation", theme=gr.themes.Soft()) as demo:
 
     gr.Markdown("""
-    # 🚗 Driving Scene Segmentation
-    **Model:** U-Net + EfficientNet-B3 — trained on BDD100K
-    **Classes:** 19 semantic classes (road, car, person, sky...)
+    # 🚗 Driving Scene Segmentation\n
+    **Model:** U-Net + EfficientNet-B3 — trained on BDD100K\n
+    **Classes:** 19 semantic classes (road, car, person, sky...)\n
     **Metrics:** mIoU 51.6% — Pixel Accuracy 91.8%
     """)
 
@@ -34,12 +34,7 @@ with gr.Blocks(title="BDD100K Segmentation") as demo:
         outputs=output_img
     )
 
-    gr.Markdown("### Classes détectées")
-    gr.Dataframe(
-        value=[[i, name] for i, name in enumerate(CLASS_NAMES)],
-        headers=["ID", "Class"],
-        interactive=False
-    )
+    
 
     if __name__ == "__main__":
         demo.launch()
